@@ -1,24 +1,28 @@
-import { PrismaClient } from "@prisma/client";
+
+import prisma from "@/database/db";
 import { NextRequest, NextResponse } from "next/server";
 
-const prisma = new PrismaClient()
 
 export const POST = async (req: NextRequest) => {
 
-    const { email, username } = await req.json();
+    const { email, username, password } = await req.json();
 
-    if (!email ||  !username) {
+
+    if (!email ||  !username || !password) {
         return NextResponse.json({
             status: 400,
-            msg: "provide the required fields email and username both!"
+            msg: "provide the required fields email, password and username!"
         })
     }
 
     try {
 
+        
         const createdUser = await prisma.user.create({
             data: {
                 email,
+                password,
+                verifyCodeExpiry: (new Date(Date.now() + (60 * 60 * 1000 ))), 
                 username,
                 verifyCode: "432532" // later send this code to user email and verify the email
             }

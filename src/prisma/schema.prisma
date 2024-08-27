@@ -14,26 +14,32 @@ datasource db {
 }
 
 model user {
-  id         Int      @id @default(autoincrement())
-  username   String   @unique
-  email      String   @unique
-  verifyCode String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  verified   Boolean  @default(false)
+  id                 Int       @id @default(autoincrement())
+  username           String    @unique
+  email              String    @unique
+  password           String    
+  verifyCode         String     
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  isVerified         Boolean   @default(false)
+  verifyCodeExpiry   DateTime  // const oneHourFromNow = new Date(Date.now() + 60 * 60 * 1000)
+  isAcceptingMessage Boolean   @default(true)
+  messages           message[]
 }
 
-model messages {
+model message {
   id      Int    @id @default(autoincrement())
   content String @db.Text
+  user    user?  @relation(fields: [userId], references: [id])
+  userId  Int?
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String   @db.VarChar(255)
-  content   String?
-  published Boolean  @default(false)
-  authorId  Int
-}
+// model Post {
+//   id        Int      @id @default(autoincrement())
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   title     String   @db.VarChar(255)
+//   content   String?
+//   published Boolean  @default(false)
+//   authorId  Int
+// }
