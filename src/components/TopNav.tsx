@@ -1,9 +1,14 @@
+'use client'
 import React from 'react'
 import { Button } from '@/components/ui/button'
 import Link from "next/link"
+import { signIn, signOut, useSession } from 'next-auth/react'
 
 
 export default function TopNav() {
+
+    const { data: session, status } = useSession()
+
     return (
         <nav className="fixed inset-x-0 top-0 z-50 bg-white shadow-sm dark:bg-gray-950/90">
             <div className="w-full dark:whie max-w-7xl mx-auto px-4">
@@ -18,12 +23,41 @@ export default function TopNav() {
                             Welcome vishwas_babar9
                         </h3>
                     </nav>
-                    <div className="flex items-center gap-4">
-                        <Button size="sm" variant="outline">
+
+                    {
+                        status === 'authenticated' ? (
+                            <div className="flex items-center gap-4">
+                                <Button
+                                    size="sm"
+                                    variant="outline"
+                                    onClick={() => signOut()}
+                                >
+                                    Sign out
+                                </Button>
+                            </div>
+                        ) : (
+                            <div className="flex items-center gap-4">
+                                <Button
+                                    size="sm"
+                                    variant="outline"
+                                    onClick={() => signIn()}
+                                >
+                                    Sign in
+                                </Button>
+                                <Button size="sm">Sign up</Button>
+                            </div>
+                        )
+                    }
+                    {/* <div className="flex items-center gap-4">
+                        <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => signIn()}
+                        >
                             Sign in
                         </Button>
                         <Button size="sm">Sign up</Button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </nav>

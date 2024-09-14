@@ -2,8 +2,8 @@ import prisma from "@/database/db";
 import { signupSchema } from "@/schemas/signupschema";
 import { generateSixDigitOtp, sendVerificationEmail } from "@/utils/sendVerificaitonEmail";
 import { NextResponse } from "next/server";
-
-
+import bcrypt from 'bcrypt'
+const saltRound = parseInt(process.env.SALT_ROUND || "");
 
 export const POST = async (req: NextResponse) => {
 
@@ -18,7 +18,8 @@ export const POST = async (req: NextResponse) => {
 
         const userExistWithUsername = await prisma.user.findFirst({
             where: {
-                username
+                username,
+                isVerified: true,
             },
             select: { id: true, username: true, email: true }
         })
@@ -36,8 +37,10 @@ export const POST = async (req: NextResponse) => {
             return NextResponse.json({ msg: "account already exist with that email" }, { status: 409 })
         }
 
-        const otp = generateSixDigitOtp()
+        // hash the password
+        const hashedPassword = await bcrypt.hash(password, saltRound)
 
+        const otp = generateSixDigitOtp()
 
         const expiryDateForOtp = new Date(Date.now() + (60 * 10 * 1000))
         // create the user in db
@@ -45,7 +48,7 @@ export const POST = async (req: NextResponse) => {
             data: {
                 email,
                 username,
-                password,
+                password: hashedPassword,
                 verifyCode: otp,
                 verifyCodeExpiry: expiryDateForOtp
             },
@@ -60,6 +63,14 @@ export const POST = async (req: NextResponse) => {
 
         if (!success) {
             console.log("failed to send the email...", error)
+
+            // delete the created user
+            await prisma.user.delete({
+                where: {
+                    id: createdUser.id
+                }
+            })
+
             return NextResponse.json({ msg: "failed to send the verification email with resend" }, { status: 404 })
         }
 
