@@ -29,12 +29,16 @@ export const POST = async (req: NextResponse) => {
         }
 
         const userExistWithEmail = await prisma.user.findFirst({
-            where: { email },
+            where: { email, isVerified: false },
             select: { id: true, email: true }
         })
 
+        // if user exist with that email and its not verified then delete first account 
         if (userExistWithEmail) {
-            return NextResponse.json({ msg: "account already exist with that email" }, { status: 409 })
+            await prisma.user.delete({
+                where: { id: userExistWithEmail.id }
+            })
+            // return NextResponse.json({ msg: "account already exist with that email" }, { status: 409 })
         }
 
         // hash the password

@@ -34,17 +34,15 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL('/sign-in', request.url))
     }
 
+    // const cookies = request.cookies.get('vishwas')
+    // console.log('cookies:', cookies)
 
+    // const response = NextResponse.next()
 
-    const cookies = request.cookies.get('vishwas')
-    console.log('cookies:', cookies)
+    // response.cookies.set('vishwas', "vishwas asdfkjlk asklkdfjlajsfljaslfjl asflk;")
+    // // return NextResponse.redirect(new URL('/', request.url))
 
-    const response = NextResponse.next()
-
-    response.cookies.set('vishwas', "vishwas asdfkjlk asklkdfjlajsfljaslfjl asflk;")
-    // return NextResponse.redirect(new URL('/', request.url))
-
-    return response
+    // return response
 }
 
 // See "Matching Paths" below to learn more
