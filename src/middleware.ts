@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server'
 import { NextRequest } from 'next/server'
-import { auth } from '../auth'
+import { auth } from './auth'
 // import { getSession } from 'next-auth/react'
 import { url } from 'inspector'
 import { getToken, GetTokenParams } from 'next-auth/jwt'
 
 
-export async function middleware(request: NextRequest) {
+async function redirectingMiddleware(request: NextRequest) {
 
     console.log('this is the top level middleware')
 
@@ -33,6 +33,16 @@ export async function middleware(request: NextRequest) {
     )) {
         return NextResponse.redirect(new URL('/sign-in', request.url))
     }
+}
+
+
+export async function middleware(request: NextRequest) {
+
+    const middleware1 = await redirectingMiddleware(request)
+    if (middleware1) {
+        return middleware1
+    }
+
 
     // const cookies = request.cookies.get('vishwas')
     // console.log('cookies:', cookies)
@@ -51,6 +61,7 @@ export const config = {
         '/',
         '/sign-in',
         '/sign-up',
+        '/dashboard'
 
         // '/user', 
     ],

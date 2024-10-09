@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="flex mt-20 mx-auto w-full">
       
-      <UserDashboard />
+      this is the landing page for true feedback
     </div>
   );
 }

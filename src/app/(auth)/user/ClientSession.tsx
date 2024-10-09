@@ -7,17 +7,6 @@ const ClientSession = () => {
 
     const { update, data, status } = useSession()
 
-    useEffect(() => {
-
-        console.log('data:', data)
-        console.log('status:', status)
-        console.log('update:', update)
-
-        return () => {
-
-        }
-    }, [update, data, status])
-
 
     if (status === 'loading') {
         return <div className='w-full mt-60 text-3xl text-white font-semibold flex items-end justify-center'>loading...</div>

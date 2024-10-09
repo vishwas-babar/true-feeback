@@ -4,6 +4,7 @@ import "./globals.css";
 import TopNav from "@/components/TopNav";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SessionProvider } from "next-auth/react";
+import RecoilContextProvider from "@/lib/RecoilContextProvider";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -21,20 +22,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <SessionProvider >
+      <RecoilContextProvider>
 
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <TopNav />
-            {children}
-          </ThemeProvider>
-        </SessionProvider>
-      </body>
+        <body className={inter.className}>
+          <SessionProvider >
+
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <TopNav />
+              {children}
+            </ThemeProvider>
+          </SessionProvider>
+        </body>
+      </RecoilContextProvider>
     </html>
   );
 }

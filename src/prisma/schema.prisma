@@ -14,32 +14,25 @@ datasource db {
 }
 
 model user {
-  id                 Int       @id @default(autoincrement())
+  id                 String    @id @default(uuid())
   username           String    @unique
   email              String    @unique
-  password           String    
-  verifyCode         String     
+  password           String
+  verifyCode         String
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
   isVerified         Boolean   @default(false)
-  verifyCodeExpiry   DateTime  // const oneHourFromNow = new Date(Date.now() + 60 * 60 * 1000)
+  verifyCodeExpiry   DateTime // const oneHourFromNow = new Date(Date.now() + 60 * 60 * 1000)
   isAcceptingMessage Boolean   @default(true)
-  messages           message[]
+  sentMessages       message[] @relation("SentMessages")
+  receivedMessages   message[] @relation("ReceivedMessages")
 }
 
 model message {
-  id      Int    @id @default(autoincrement())
-  content String @db.Text
-  user    user?  @relation(fields: [userId], references: [id])
-  userId  Int?
+  id         String @id @default(uuid())
+  content    String @db.Text
+  sender     user   @relation("SentMessages", fields: [senderId], references: [id])
+  senderId   String
+  receiver   user   @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  receiverId String
 }
-
-// model Post {
-//   id        Int      @id @default(autoincrement())
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-//   title     String   @db.VarChar(255)
-//   content   String?
-//   published Boolean  @default(false)
-//   authorId  Int
-// }

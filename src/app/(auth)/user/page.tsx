@@ -1,7 +1,7 @@
 // 'use client'
 
 import React, { useEffect } from 'react'
-import { auth } from '../../../../auth'
+import { auth } from '../../../auth'
 import { useSession } from 'next-auth/react'
 import ClientSession from './ClientSession'
 

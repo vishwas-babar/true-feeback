@@ -1,3 +1,5 @@
+import { signupSchema } from "@/schemas/signupschema"
+import { z } from "zod"
 
 interface user {
     user_name: string,
@@ -10,6 +12,8 @@ interface user {
     updated_at: Date,
     is_accepting_messages: boolean,
 }
+
+type User = z.infer<typeof signupSchema>
 
 interface message {
     content: string,

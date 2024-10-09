@@ -50,7 +50,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                             username: true,
                             isAcceptingMessage: true
                         },
-
                     })
 
                     if (!existingUser) {
