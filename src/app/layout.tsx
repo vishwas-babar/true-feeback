@@ -5,6 +5,7 @@ import TopNav from "@/components/TopNav";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SessionProvider } from "next-auth/react";
 import RecoilContextProvider from "@/lib/RecoilContextProvider";
+import { Toaster } from "@/components/ui/toaster";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -33,8 +34,9 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <TopNav />
+              {/* <TopNav /> */}
               {children}
+              <Toaster />
             </ThemeProvider>
           </SessionProvider>
         </body>

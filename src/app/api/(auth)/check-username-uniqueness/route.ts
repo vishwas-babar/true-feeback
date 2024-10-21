@@ -4,17 +4,19 @@ import { NextRequest, NextResponse } from "next/server";
 
 const usernameSchema = signupSchema.pick({ username: true })
 
-export const GET = async (req: NextRequest) => {
+export const POST = async (req: NextRequest) => {
 
     try {
-        const { searchParams } = new URL(req.url)
-        const queryParams = {
-            username: searchParams.get('username')
-        }
+        // const { searchParams } = new URL(req.url)
+        // const queryParams = {
+        //     username: searchParams.get('username')
+        // }
 
-        const result = usernameSchema.safeParse(queryParams)
+        const { username } = await req.json();
 
-        console.log('resul:t: ', result)
+        const result = usernameSchema.safeParse({ username})
+
+        console.log('result: ', result)
 
         if (!result.success) {
 
@@ -29,13 +31,16 @@ export const GET = async (req: NextRequest) => {
         // check if username is unique or not in db
         const foundUser = await prisma.user.findFirst({
             where: {
-                username: result.data.username,
+                username: result.data.username
+            },
+            select: {
+                username: true,
                 isVerified: true
             }
-        })
+        }) 
 
         // user found that means user is already exist with that username
-        if (foundUser) {
+        if (foundUser ) {
             return NextResponse.json({
                 success: false,
                 message: "user exist with provied username"

@@ -12,7 +12,7 @@ const AcceptingMessagesToggle = ({ isAcceptingMessageProp }: { isAcceptingMessag
     // const currentUserInfo = getValue()
 
     
-    const [isAcceptingMessage, setIsAcceptingMessage] = useState<boolean>(loadable.contents.isAcceptingMessage || false)
+    const [isAcceptingMessage, setIsAcceptingMessage] = useState<boolean>(loadable?.contents?.isAcceptingMessage || false)
 
     useEffect(() => {
         if (loadable.state === 'hasValue') {
@@ -24,7 +24,6 @@ const AcceptingMessagesToggle = ({ isAcceptingMessageProp }: { isAcceptingMessag
         console.log('sending request to toggle the btn...')
         setIsAcceptingMessage(prev => !prev)
         try {
-
             const res = await axios.post('/api/messages/toggle-accepting-messages')
             console.log(res.data)
         } catch (error) {

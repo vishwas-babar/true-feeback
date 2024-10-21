@@ -49,6 +49,13 @@ export const POST = async (req: NextRequest) => {
             }, select: { id: true, isAcceptingMessage: true, username: true }
         })
 
+        if (userToSendFeedback?.username == currentUser.user.username) {
+            return NextResponse.json({
+                success: false,
+                message: "you cant send a feedback to yourself!"
+            }, { status: 406 })
+        }
+
         if (!userToSendFeedback) {
             return NextResponse.json({
                 success: false,
@@ -78,6 +85,13 @@ export const POST = async (req: NextRequest) => {
             }
         })
 
+        if (createdMessage) {
+            return NextResponse.json({
+                success: true,
+                message: "feedback sent successfully"
+            }, { status: 201 })
+        }
+
     } catch (error) {
         console.log("error while sending the message", error)
 
@@ -86,7 +100,6 @@ export const POST = async (req: NextRequest) => {
             message: "failed to send the message"
         }, { status: 500 })
     }
-
 
     return NextResponse.json({
         success: false,

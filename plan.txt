@@ -1,0 +1,32 @@
+
+development done:
+backend: 
+1. signup route
+2. check-username-uniqueness
+3. get-current-user-details
+4. verify-user-otp
+5. create-one message
+6. get-user-messages
+
+
+
+future developement:
+
+backend:
+1. build a middleware for all the authorized endpoint
+2. 
+
+
+frontend: 
+1. build a proper signup page
+2. signin page
+3. proper model to verify user
+4. dashboard page where user can see received feedback and can send feedback to other
+5. landing page 
+6. solve isAcceptingMessage toggle btn problem, its not functioning properly
+
+
+
+errors:
+1. error while sending the message SyntaxError: Unexpected end of JSON input
+above error in create-one message route, solve it when you are online by googling it

@@ -17,9 +17,12 @@ const extendedUserSchema = verifyUserSchema.extend({
 export const POST = async (req: NextRequest) => {
 
     try {
-        const verifyUserData = await req.json()
+        const { email, verifyCode } = await req.json()
 
-        const result = extendedUserSchema.safeParse(verifyUserData);
+        const result = extendedUserSchema.safeParse({
+            email,
+            verifyCode
+        });
 
         if (!result.success) {
             const userEmailError = result.error.format().email?._errors || []
@@ -89,10 +92,12 @@ export const POST = async (req: NextRequest) => {
             }, { status: 500 })
         }
 
+        return NextResponse.redirect(new URL('/dashboard', req.url))
+
         return NextResponse.json({
             success: true,
-            message: "verification successful"
-        }, { status: 401 })
+            message: "Your Email is verified now."
+        }, { status: 200 })
     } catch (error) {
         console.log(error)
         return NextResponse.json({

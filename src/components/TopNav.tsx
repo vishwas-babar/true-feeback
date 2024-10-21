@@ -17,31 +17,8 @@ export default function TopNav() {
     useEffect(() => {
         console.log("userfromserver: ", userFromServer)
         // setUserAuth(prev => prev + 10)
-    }, [ userFromServer])
+    }, [userFromServer])
 
-
-    // useEffect(() => {
-
-
-    //     if (status === 'authenticated') {
-
-    //         setUserAuth({
-    //             ...userAuth,
-    //             user: {
-    //                 ...userAuth.user,
-    //                 username: session.user.name || "",
-    //                 email: session.user.email || "",
-    //                 isVerified: true,
-    //                 isAcceptingMessage: true,
-    //                 id: session.user.id || ""
-    //             }
-    //         })
-    //     }
-    // }, [])
-
-    // useEffect(() => {
-    //     console.log("userFromServer: ", userFromServer)
-    // }, [userFromServer])
 
 
     return (

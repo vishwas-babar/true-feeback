@@ -3,6 +3,7 @@ import { signupSchema } from "@/schemas/signupschema";
 import { generateSixDigitOtp, sendVerificationEmail } from "@/utils/sendVerificaitonEmail";
 import { NextResponse } from "next/server";
 import bcrypt from 'bcrypt'
+import { signIn } from "@/auth";
 const saltRound = parseInt(process.env.SALT_ROUND || "");
 
 export const POST = async (req: NextResponse) => {
@@ -13,32 +14,44 @@ export const POST = async (req: NextResponse) => {
         const validation = signupSchema.safeParse({ username, email, password })
 
         if (!validation.success && validation.error) {
-            return NextResponse.json({ msg: "signup inputs are invalid", error: validation.error.message })
+            return NextResponse.json({ msg: "signup inputs are invalid", error: validation.error.message }, { status: 400 })
         }
 
         const userExistWithUsername = await prisma.user.findFirst({
             where: {
                 username,
-                isVerified: true,
             },
-            select: { id: true, username: true, email: true }
+            select: { id: true, username: true, email: true, isVerified: true }
         })
 
-        if (userExistWithUsername) {
-            return NextResponse.json({ msg: "username is already taken" }, { status: 409 })
+        if (userExistWithUsername && userExistWithUsername.isVerified) {
+            return NextResponse.json({ message: "username is already taken" }, { status: 409 })
+        }
+
+        if (userExistWithUsername && !userExistWithUsername?.isVerified) {
+            await prisma.user.delete({
+                where: {
+                    username,
+                }
+            })
         }
 
         const userExistWithEmail = await prisma.user.findFirst({
-            where: { email, isVerified: false },
-            select: { id: true, email: true }
+            where: { email },
+            select: { id: true, email: true, isVerified: true }
         })
 
+        if (userExistWithEmail?.isVerified) {
+            return NextResponse.json({
+                message: "account already exist with provided email, so please login"
+            }, { status: 409 })
+        }
+
         // if user exist with that email and its not verified then delete first account 
-        if (userExistWithEmail) {
+        if (userExistWithEmail && !userExistWithEmail.isVerified) {
             await prisma.user.delete({
                 where: { id: userExistWithEmail.id }
             })
-            // return NextResponse.json({ msg: "account already exist with that email" }, { status: 409 })
         }
 
         // hash the password
@@ -75,17 +88,22 @@ export const POST = async (req: NextResponse) => {
                 }
             })
 
-            return NextResponse.json({ msg: "failed to send the verification email with resend" }, { status: 404 })
+            return NextResponse.json({ message: "failed to send the verification email" }, { status: 404 })
         }
 
         if (!createdUser) {
-            return NextResponse.json({ msg: 'unable to create the user' })
+            return NextResponse.json({ message: 'unable to create the user' })
         }
 
-        return NextResponse.json({ msg: 'created the user successfully, now verify it', createdUser }, { status: 201 })
-    } catch (error) {
-        console.error(error)
-        return NextResponse.json({ msg: "unable to create user!" }, { status: 500 })
+        // await signIn('credentials', {
+        //     email: createdUser.email,
+        //     password: password
+        // })
+
+        return NextResponse.json({ message: 'created the user successfully, now verify it', createdUser }, { status: 201 })
+    } catch (error: any) {
+        console.error(error.message)
+        return NextResponse.json({ message: "unable to create user!" }, { status: 500 })
     }
 
 }

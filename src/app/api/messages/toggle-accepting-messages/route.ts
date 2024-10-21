@@ -11,7 +11,7 @@ export const POST = async (req: NextRequest) => {
         if (!currentUser) {
             return NextResponse.json({
                 success: false,
-                message: "you are no logged in, signin first"
+                message: "you are not logged in, signin first"
             })
         }
 
@@ -28,6 +28,7 @@ export const POST = async (req: NextRequest) => {
 
         if (!userinDb) {
             // clear the user cookies of auth maybe user is already deleted, you should do this work in middleware
+            req.cookies.delete('authjs.session-token')
             return NextResponse.json({
                 success: false,
                 message: "current user not found in db"

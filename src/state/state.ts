@@ -1,4 +1,3 @@
-import { Prisma } from "@prisma/client";
 import axios from "axios";
 import { atom, selector } from "recoil";
 import type { user } from "@prisma/client";
@@ -8,8 +7,6 @@ type UserTypeForState = Pick<user, "username" | "email" | "isAcceptingMessage" |
 export const userAuthState = atom({
     key: 'userState',
     default: {
-        // isLoading: true,
-        // isError: false,
         user: {
             username: "",
             email: "",

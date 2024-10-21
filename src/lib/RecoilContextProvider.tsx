@@ -13,4 +13,4 @@ const RecoilContextProvider = ({ children }: {
     )
 }
 
-export default RecoilContextProvider
+export default RecoilContextProvider;
