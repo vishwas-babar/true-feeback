@@ -1,3 +1,4 @@
+import { signIn } from "@/auth";
 import prisma from "@/database/db";
 import { signupSchema } from "@/schemas/signupschema";
 import { NextRequest, NextResponse } from "next/server";
@@ -92,7 +93,7 @@ export const POST = async (req: NextRequest) => {
             }, { status: 500 })
         }
 
-        return NextResponse.redirect(new URL('/dashboard', req.url))
+        // return NextResponse.redirect(new URL('/dashboard', req.url))
 
         return NextResponse.json({
             success: true,

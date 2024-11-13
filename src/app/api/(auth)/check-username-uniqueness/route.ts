@@ -31,7 +31,7 @@ export const POST = async (req: NextRequest) => {
         // check if username is unique or not in db
         const foundUser = await prisma.user.findFirst({
             where: {
-                username: result.data.username
+                username: result.data.username.toLowerCase()
             },
             select: {
                 username: true,

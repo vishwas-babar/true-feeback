@@ -2,6 +2,10 @@
 import { signupSchema } from "@/schemas/signupschema"
 import axios from "axios"
 import { BACKEND_URL } from "../../variables"
+import { signinSchema } from "@/schemas/signinSchema"
+import { signIn } from "@/auth"
+import { redirect, RedirectType } from "next/navigation"
+import prisma from "@/database/db"
 
 
 type FormState = {
@@ -11,7 +15,7 @@ type FormState = {
 }
 
 export async function handleSubmitSignupForm(previousState: any, formData: FormData) {
-    
+
 
     const username = formData.get('username')
     const email = formData.get('email')
@@ -25,7 +29,7 @@ export async function handleSubmitSignupForm(previousState: any, formData: FormD
 
 
     if (!validation.success) {
-        
+
         return {
             success: false,
             message: "",
@@ -49,6 +53,12 @@ export async function handleSubmitSignupForm(previousState: any, formData: FormD
         }
 
         console.log(res.data)
+
+        const signinStatus = await signIn('credentials', {
+            redirect: false,
+            email: email,
+            password: password
+        })
 
         return {
             success: true,
@@ -78,4 +88,59 @@ export async function handleSubmitSignupForm(previousState: any, formData: FormD
         }
     }
 
+}
+
+export async function handleSubmitSigninForm(formData: FormData) {
+
+    const email = formData.get('email')
+    const password = formData.get('password')
+
+    const validation = signinSchema.safeParse({ email, password })
+
+    if (!validation.success) {
+        console.log(validation.error)
+    }
+
+    console.log(validation.data)
+
+    try {
+        const signinStatus = await signIn('credentials', {
+            redirect: false,
+            email: email,
+            password: password
+        })
+
+        redirect('/dashboard', RedirectType.push)
+    } catch (error) {
+        console.log('failed to signin', error)
+    }
+}
+
+
+export async function getCurrentUser(id: string) {
+    try {
+        const userInDb = await prisma.user.findFirst({
+            where: {
+                id: id
+            },
+            select: {
+                username: true,
+                email: true,
+                id: true,
+                isAcceptingMessage: true,
+                isVerified: true,
+
+            }
+        })
+
+        return {
+            success: true,
+            user: userInDb
+        }
+    } catch (error) {
+        return {
+            success: false,
+            user: undefined
+        }
+    }
 }

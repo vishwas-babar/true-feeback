@@ -1,14 +1,56 @@
 import { NextResponse } from 'next/server'
 import { NextRequest } from 'next/server'
+// import { auth as middleware } from './auth'
+// import { getSession } from 'next-auth/react''
+import { getToken } from 'next-auth/jwt'
 import { auth } from './auth'
-// import { getSession } from 'next-auth/react'
-import { url } from 'inspector'
-import { getToken, GetTokenParams } from 'next-auth/jwt'
+
+
+
+export async function middleware(request: NextRequest) {
+
+    const middleware1 = await redirectingMiddleware(request)
+    if (middleware1) {
+        return middleware1
+    }
+
+    // const middleware2 = await otpVerificationCheckMiddleware(request)
+    // if (middleware2) {
+    //     return middleware2
+    // }
+
+
+    // const cookies = request.cookies.get('vishwas')
+    // console.log('cookies:', cookies)
+
+    // const response = NextResponse.next()
+
+    // response.cookies.set('vishwas', "vishwas asdfkjlk asklkdfjlajsfljaslfjl asflk;")
+    // // return NextResponse.redirect(new URL('/', request.url))
+
+    // return response
+}
+
+
+async function otpVerificationCheckMiddleware(request: NextRequest) {
+    // const session = await auth()
+
+    // if (!session?.user) {
+    //     return NextResponse.redirect(new URL('/sign-in', request.url))
+    // }
+
+    // const isVerified = session.user.isVerified
+
+    // if (isVerified) {
+    //     return NextResponse.redirect(new URL('/verify', request.url))
+    // } else {
+    //     return NextResponse.next()
+    // }
+
+}
 
 
 async function redirectingMiddleware(request: NextRequest) {
-
-    console.log('this is the top level middleware')
 
     const url = request.nextUrl
 
@@ -25,7 +67,7 @@ async function redirectingMiddleware(request: NextRequest) {
         url.pathname.startsWith('/sign-in') ||
         url.pathname.startsWith('/sign-up')
     )) {
-        return NextResponse.redirect(new URL('/', request.url))
+        return NextResponse.redirect(new URL('/dashboard', request.url))
     }
 
     if (!token && (
@@ -33,26 +75,6 @@ async function redirectingMiddleware(request: NextRequest) {
     )) {
         return NextResponse.redirect(new URL('/sign-in', request.url))
     }
-}
-
-
-export async function middleware(request: NextRequest) {
-
-    const middleware1 = await redirectingMiddleware(request)
-    if (middleware1) {
-        return middleware1
-    }
-
-
-    // const cookies = request.cookies.get('vishwas')
-    // console.log('cookies:', cookies)
-
-    // const response = NextResponse.next()
-
-    // response.cookies.set('vishwas', "vishwas asdfkjlk asklkdfjlajsfljaslfjl asflk;")
-    // // return NextResponse.redirect(new URL('/', request.url))
-
-    // return response
 }
 
 // See "Matching Paths" below to learn more

@@ -27,12 +27,16 @@ export const GET = async (req: NextRequest) => {
                 username: true,
                 email: true,
                 receivedMessages: true,
+                createdAt: true,
             }
         })
     
         console.log("this is the users messages: ", userInDb?.receivedMessages)
     
-    
+        return NextResponse.json({ 
+            messages: userInDb?.receivedMessages,
+            success: true
+        }, { status: 200 })
     } catch (error) {
         return NextResponse.json({
             message: "error in getting user messages",

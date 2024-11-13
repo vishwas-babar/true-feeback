@@ -1,11 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
-import { signOut } from "next-auth/react";
 import { messageSchema } from "@/schemas/messageSchema";
 import { signupSchema } from "@/schemas/signupschema";
 import { z } from "zod";
 import prisma from "@/database/db";
-import { connect } from "http2";
 
 const createMessageSchema = z.object({
     content: messageSchema.shape.content,
@@ -45,7 +43,7 @@ export const POST = async (req: NextRequest) => {
         // check the user accepting a feedback or not
         const userToSendFeedback = await prisma.user.findFirst({
             where: {
-                username: result.data.username
+                username: result.data.username.toLowerCase()
             }, select: { id: true, isAcceptingMessage: true, username: true }
         })
 
@@ -73,9 +71,6 @@ export const POST = async (req: NextRequest) => {
         const createdMessage = await prisma.message.create({
             data: {
                 content: result.data.content,
-                sender: {
-                    connect: { id: currentUser.user.id }
-                },
                 receiver: {
                     connect: {
                         id: userToSendFeedback.id

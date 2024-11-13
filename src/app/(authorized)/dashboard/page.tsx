@@ -3,10 +3,10 @@ import React from 'react'
 
 const page = () => {
   return (
-      <div className="flex mt-20 mx-auto w-full">
+    <div className="flex bg-color1 pt-20 h-screen mx-auto w-full">
 
-          <UserDashboard />
-      </div>
+      <UserDashboard />
+    </div>
   )
 }
 

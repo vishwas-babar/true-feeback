@@ -1,6 +1,7 @@
 import { z } from 'zod';
+import { signupSchema } from './signupschema';
 
 export const signinSchema = z.object({
-  email: z.string().email('invalid email'),
-  password: z.string().min(8, 'password must be at least 8 characters')
+  email: signupSchema.shape.email,
+  password: signupSchema.shape.password
 });

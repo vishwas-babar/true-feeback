@@ -28,6 +28,10 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        'color1': "#000000",
+        'color2': "#232D3F",
+        'color3': "#005B41",
+        'color4': "#008170",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",

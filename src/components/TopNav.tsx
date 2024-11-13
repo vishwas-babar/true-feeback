@@ -19,10 +19,8 @@ export default function TopNav() {
         // setUserAuth(prev => prev + 10)
     }, [userFromServer])
 
-
-
     return (
-        <nav className="fixed inset-x-0 top-0 z-50 bg-white shadow-sm dark:bg-gray-950/90">
+        <nav className="fixed inset-x-0 flex items-center top-0 z-50 bg-white shadow-sm h-20 dark:bg-color1 border-b">
             <div className="w-full dark:whie max-w-7xl mx-auto px-4">
                 <div className="flex justify-between h-14 items-center">
                     <Link className="flex items-center" href="#">
@@ -31,9 +29,14 @@ export default function TopNav() {
                         </h2>
                     </Link>
                     <nav className="hidden md:flex gap-4">
-                        <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-                            Welcome vishwas_babar9
-                        </h3>
+                        {
+                            status === 'authenticated' && (
+                                <h3 className="scroll-m-20 text-2xl font-normal tracking-tight">
+                                    Welcome {session?.user.username}
+                                </h3>
+                            )
+                        }
+                        
                     </nav>
 
                     {
@@ -61,18 +64,6 @@ export default function TopNav() {
                         )
                     }
 
-                    <button onClick={() => {
-                        axios.post('/api/messages/create-one')
-                            .then(res => {
-                                console.log(res.data)
-                            })
-                            .catch(err => {
-                                console.log(err)
-                            })
-
-                    }}>
-                        click me
-                    </button>
                     {/* <div className="flex items-center gap-4">
                         <Button
                             size="sm"

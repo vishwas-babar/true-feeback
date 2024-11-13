@@ -7,16 +7,13 @@ import { Button } from './ui/button';
 import Link from 'next/link';
 import { useFormState, useFormStatus } from 'react-dom';
 import { handleSubmitSignupForm } from '@/actions/action';
-import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
-import { Form, useForm } from 'react-hook-form';
-import { string } from 'zod';
 import { useToast } from '@/hooks/use-toast';
 import Overlay from './Overlay';
 import OtpVerification from './OtpVerification';
-import CheckBox from './CheckBox';
 import Tickmark from './Tickmark';
 import Spinner from './Spinner';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 interface errorType {
     success: boolean,
@@ -33,6 +30,8 @@ interface errorType {
 
 const Signup = () => {
 
+    const router = useRouter()
+
     const [state, formAction] = useFormState<errorType>(handleSubmitSignupForm, {
         success: false,
         message: "",
@@ -45,10 +44,6 @@ const Signup = () => {
             email: undefined
         }
     })
-
-    // for the overlay
-    const [isOverlayOpen, setIsOverlayOpen] = useState(false);
-    const [isOtpVerificationModelOpen, setIsOtpVerificationModelOpen] = useState(false)
 
     const { toast } = useToast();
 
@@ -73,12 +68,11 @@ const Signup = () => {
                 localStorage.setItem('userEmail', state.user.email)
             }
 
-            setIsOverlayOpen(true)
-            setIsOtpVerificationModelOpen(true)
+            router.push('/verify')
         }
 
         return () => {
-
+            // cleanup function
         }
     }, [state])
 
@@ -88,6 +82,8 @@ const Signup = () => {
         isAvailable: false,
     })
 
+
+    // check username uniqueness
     useEffect(() => {
 
         if (username === "") {
@@ -131,7 +127,7 @@ const Signup = () => {
     return (
         <>
             <form action={formAction}>
-                <Card className='w-80'>
+                <Card className='w-80 dark:bg-color2'>
 
                     <CardHeader>
 
@@ -164,7 +160,7 @@ const Signup = () => {
                                 />
                                 <Spinner isActive={usernameStatus.isLoading} classname='absolute right-2 top-2 ' />
                                 <Tickmark isActive={usernameStatus.isAvailable} classname='absolute -right-8 top-1/2 transform -translate-y-1/2 scale-[0.3]' />
-                                {/* <CheckBox isActive={} classname='absolute right-2 top-1/2 transform -translate-y-1/2' /> */}
+                              
                             </div>
 
                             <ErrorField name='username' errorState={state} />
@@ -190,7 +186,7 @@ const Signup = () => {
 
                     <CardFooter className='flex pb-3 flex-col gap-[2px] items-start'>
 
-                        <SubmitBtn label='Sign up' loading="loading..." classname='w-full' />
+                        <SubmitBtn label='Sign up' loading="loading..." classname='w-full bg-color3 text-white font-medium hover:bg-green-800' />
 
                         <span className='text-sm'>
                             Already have an account, {" "}
@@ -199,8 +195,8 @@ const Signup = () => {
                     </CardFooter>
                 </Card>
             </form>
-            <Overlay isActive={isOverlayOpen} />
-            <OtpVerification isActive={isOtpVerificationModelOpen} />
+            {/* <Overlay isActive={isOverlayOpen} />
+            <OtpVerification isActive={isOtpVerificationModelOpen} /> */}
         </>
     )
 }

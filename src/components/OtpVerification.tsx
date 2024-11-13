@@ -5,15 +5,17 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from './ui/input-otp'
 import { Button } from './ui/button'
 import { verifySchema } from '@/schemas/verifycodeschema'
 import axios from 'axios'
-import { BACKEND_URL } from '../../variables'
 import { useToast } from '@/hooks/use-toast'
 import { SubmitBtn } from './Signup'
+import { useRouter } from 'next/navigation'
 
 const OtpVerification = ({ isActive }: {
     isActive: boolean,
 }) => {
 
     const { toast } = useToast()
+
+    const router = useRouter()
 
     const [value, setValue] = useState("")
 
@@ -50,6 +52,7 @@ const OtpVerification = ({ isActive }: {
                 title: "Email Verified",
                 description: res.data.message
             })
+            router.push('/dashboard')
         } catch (error) {
             console.log("error: ", error)
             toast({

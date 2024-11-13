@@ -19,7 +19,7 @@ export const POST = async (req: NextResponse) => {
 
         const userExistWithUsername = await prisma.user.findFirst({
             where: {
-                username,
+                username.toLowerCase(),
             },
             select: { id: true, username: true, email: true, isVerified: true }
         })
@@ -31,7 +31,7 @@ export const POST = async (req: NextResponse) => {
         if (userExistWithUsername && !userExistWithUsername?.isVerified) {
             await prisma.user.delete({
                 where: {
-                    username,
+                   username: username.toLowerCase(),
                 }
             })
         }
@@ -64,7 +64,7 @@ export const POST = async (req: NextResponse) => {
         const createdUser = await prisma.user.create({
             data: {
                 email,
-                username,
+                username: username.toLowerCase(),
                 password: hashedPassword,
                 verifyCode: otp,
                 verifyCodeExpiry: expiryDateForOtp
@@ -95,10 +95,18 @@ export const POST = async (req: NextResponse) => {
             return NextResponse.json({ message: 'unable to create the user' })
         }
 
-        // await signIn('credentials', {
-        //     email: createdUser.email,
-        //     password: password
-        // })
+        try {
+            const signinStatus = await signIn('credentials', {
+                redirect: false,
+                // redirectTo: '/dashboard',
+                email: createdUser.email,
+                password: password,
+            })
+
+            console.log('signinStatus: ', signinStatus)
+        } catch (error: any) {
+            console.log('error in signin function: ', error.message)
+        }
 
         return NextResponse.json({ message: 'created the user successfully, now verify it', createdUser }, { status: 201 })
     } catch (error: any) {

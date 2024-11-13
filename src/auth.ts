@@ -1,17 +1,9 @@
+
 import NextAuth, { CredentialsSignin } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import bcrypt from "bcrypt"
 import prisma from "@/database/db"
 import { signinSchema } from "@/schemas/signinSchema"
-
-class InvalidLoginError extends CredentialsSignin {
-    code = "invalid email or password try something else"
-
-    constructor(errorMsg: string) {
-        super()
-        this.code = errorMsg
-    }
-}
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
     providers: [
@@ -35,9 +27,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                     const validation = signinSchema.safeParse({ email, password })
 
                     if (!validation.success && validation.error) {
-                        // return null
-                        throw new CredentialsSignin("invalid email or password")
-                        throw new Error('invalid email or password')
+                        throw new CredentialsSignin(" email or password")
+                        
                     }
 
                     const existingUser = await prisma.user.findFirst({
@@ -62,10 +53,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                         throw new Error('wrong password!')
                     }
 
-                    if (isPasswordMatch && !existingUser.isVerified) {
-                        throw new Error("You not verified your email address first verify it")
-                    }
-
                     return {
                         id: existingUser.id || "",
                         username: existingUser.username,
@@ -74,12 +61,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                         isAcceptingMessages: existingUser.isAcceptingMessage,
                     };
 
-                } catch (error) {
-                    console.error(error)
-                    throw new Error('unable it check user')
+                } catch (error: any) {
+                    console.error(error.message)
+                    throw new Error(error.message)
+                    return null
                 }
             },
-
         },
             
         ),
@@ -108,12 +95,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             }
 
             return session;
-        }
+        },
+        // authorized: ({ request, auth }) => {
+
+        // }
     },
-    // pages: {
-    //     signIn: '/signin',
-    //     signOut: '/signout'
-    // },
+    pages: {
+        signIn: '/sign-in',
+        // signOut: '/signout'
+    },
     session: {
         strategy: "jwt"
     },

@@ -1,10 +1,15 @@
 'use client'
 import axios from 'axios'
 import React, { useState } from 'react'
+import { Textarea } from './ui/textarea'
+import { Button } from './ui/button'
+import { Input } from './ui/input'
+import { Card, CardContent, CardFooter, CardHeader } from './ui/card'
+import { Label } from './ui/label'
 
-const SendMessage = () => {
+const SendMessage = ({ sendMessageTo }: { sendMessageTo: string }) => {
 
-    const [username, setUsername] = useState("")
+    const [username, setUsername] = useState(sendMessageTo)
     const [message, setMessage] = useState("")
 
     async function submitSendMessageForm(e: any) {
@@ -17,22 +22,46 @@ const SendMessage = () => {
 
             console.log("this is the response from backend: ", res.data)
         } catch (error) {
-           console.log('error in sending message to user', error) 
+            console.log('error in sending message to user', error)
         }
     }
 
     return (
         <form onSubmit={submitSendMessageForm}>
 
-            <input type="text" onChange={(e) => {
-                setUsername(e.target.value)
-            }} placeholder='send to' />
+            <Card className='w-96 dark:bg-color2'>
 
-            <input type="text"
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder='message' />
+                <CardHeader>
+                    <h2 className='text-xl text-center font-medium'>Send message</h2>
+                </CardHeader>
 
-            <button type="submit">send message</button>
+                <CardContent>
+                    <div className="flex flex-col w-full gap-3">
+
+                        <Label htmlFor='username'>
+                            Username:
+                        </Label>
+                        <Input name='username' id='username' type='text'
+                            className='dark:bg-color1'
+                            value={username}
+                            disabled
+                            onChange={(e) => {
+                                setUsername(e.target.value)
+                            }}
+                        />
+                        <Textarea
+                            className='dark:bg-color1'
+                            onChange={(e) => setMessage(e.target.value)}
+                            placeholder='type your message...'
+                        />
+
+                    </div>
+                </CardContent>
+
+                <CardFooter className='flex justify-end'>
+                    <Button type='submit' className=' bg-color3 hover:bg-color4 text-white'>Send message</Button>
+                </CardFooter>
+            </Card>
 
         </form>
     )

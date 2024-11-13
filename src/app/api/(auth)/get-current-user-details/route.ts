@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { auth, signOut } from "@/auth";
 import prisma from "@/database/db";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -46,8 +46,8 @@ export const GET = async (req: NextRequest) => {
             user: userInDb
         }, { status: 200 })
 
-    } catch (error) {
-        console.log('error while getting current user details')
+    } catch (error: any) {
+        console.log('error while getting current user details', error.message)
         return NextResponse.json({
             success: false,
             message: "error while getting the current logged in user details",
@@ -55,9 +55,4 @@ export const GET = async (req: NextRequest) => {
         }, { status: 500 })
     }
 
-    return NextResponse.json({
-        success: false,
-        message: "",
-        user: null
-    })
 }

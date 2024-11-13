@@ -24,15 +24,13 @@ model user {
   isVerified         Boolean   @default(false)
   verifyCodeExpiry   DateTime // const oneHourFromNow = new Date(Date.now() + 60 * 60 * 1000)
   isAcceptingMessage Boolean   @default(true)
-  sentMessages       message[] @relation("SentMessages")
   receivedMessages   message[] @relation("ReceivedMessages")
 }
 
 model message {
   id         String @id @default(uuid())
   content    String @db.Text
-  sender     user   @relation("SentMessages", fields: [senderId], references: [id])
-  senderId   String
   receiver   user   @relation("ReceivedMessages", fields: [receiverId], references: [id])
   receiverId String
+  createdAt  DateTime @default(now())
 }

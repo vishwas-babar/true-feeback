@@ -12,7 +12,7 @@ const AcceptingMessagesToggle = ({ isAcceptingMessageProp }: { isAcceptingMessag
     // const currentUserInfo = getValue()
 
     
-    const [isAcceptingMessage, setIsAcceptingMessage] = useState<boolean>(loadable?.contents?.isAcceptingMessage || false)
+    const [isAcceptingMessage, setIsAcceptingMessage] = useState<boolean>(isAcceptingMessageProp || false)
 
     useEffect(() => {
         if (loadable.state === 'hasValue') {
@@ -33,7 +33,7 @@ const AcceptingMessagesToggle = ({ isAcceptingMessageProp }: { isAcceptingMessag
     }
 
     return (
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center mt-2 space-x-2">
             <Switch
                 id="Acceptingmessage"
                 checked={isAcceptingMessage}
