@@ -19,7 +19,7 @@ export const POST = async (req: NextResponse) => {
 
         const userExistWithUsername = await prisma.user.findFirst({
             where: {
-                username.toLowerCase(),
+               username: username.toLowerCase(),
             },
             select: { id: true, username: true, email: true, isVerified: true }
         })

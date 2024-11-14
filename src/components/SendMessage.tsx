@@ -38,17 +38,20 @@ const SendMessage = ({ sendMessageTo }: { sendMessageTo: string }) => {
                 <CardContent>
                     <div className="flex flex-col w-full gap-3">
 
-                        <Label htmlFor='username'>
-                            Username:
-                        </Label>
-                        <Input name='username' id='username' type='text'
-                            className='dark:bg-color1'
-                            value={username}
-                            disabled
-                            onChange={(e) => {
-                                setUsername(e.target.value)
-                            }}
-                        />
+                        <div>
+
+                            <Label htmlFor='username'>
+                                Username:
+                            </Label>
+                            <Input name='username' id='username' type='text'
+                                className='dark:bg-color1'
+                                value={username}
+                                disabled
+                                onChange={(e) => {
+                                    setUsername(e.target.value)
+                                }}
+                            />
+                        </div>
                         <Textarea
                             className='dark:bg-color1'
                             onChange={(e) => setMessage(e.target.value)}

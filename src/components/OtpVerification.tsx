@@ -19,14 +19,6 @@ const OtpVerification = ({ isActive }: {
 
     const [value, setValue] = useState("")
 
-    useEffect(() => {
-        console.log(value)
-
-
-        return () => {
-
-        }
-    }, [value])
 
     async function verifyOTP() {
         // do the validation
@@ -52,7 +44,7 @@ const OtpVerification = ({ isActive }: {
                 title: "Email Verified",
                 description: res.data.message
             })
-            router.push('/dashboard')
+            router.replace('/dashboard')
         } catch (error) {
             console.log("error: ", error)
             toast({
