@@ -18,7 +18,7 @@ model user {
   username           String    @unique
   email              String    @unique
   password           String
-  verifyCode         String
+  verifyCode         String    @default("")
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
   isVerified         Boolean   @default(false)
