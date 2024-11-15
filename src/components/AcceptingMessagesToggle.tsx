@@ -18,7 +18,7 @@ const AcceptingMessagesToggle = ({ isAcceptingMessageProp }: { isAcceptingMessag
         if (loadable.state === 'hasValue') {
             setIsAcceptingMessage(loadable.contents?.isAcceptingMessage || false)
         }
-    }, [])
+    }, )
 
     async function toggleAcceptingMessages() {
         console.log('sending request to toggle the btn...')

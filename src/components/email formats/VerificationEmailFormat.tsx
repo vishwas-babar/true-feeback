@@ -37,10 +37,10 @@ export default function VerificationEmailTemplate({
                                 Hello {username},
                             </Text>
                             <Text style={mainText}>
-                                Thanks for starting the new true feedback account creation process. We
+                                {`Thanks for starting the new true feedback account creation process. We
                                 want to make sure it's really you. Please enter the following
-                                verification code when prompted. If you don&apos;t want to
-                                create an account, you can ignore this message.
+                                verification code when prompted. If you don't want to
+                                create an account, you can ignore this message.`}
                             </Text>
                             <Section style={verificationSection}>
                                 <Text style={verifyText}>Verification code</Text>

@@ -1,4 +1,4 @@
-import VerifyPage from '@/pages/VerifyPage'
+import VerifyPage from '@/mainpages/VerifyPage'
 import React from 'react'
 
 const page = () => {

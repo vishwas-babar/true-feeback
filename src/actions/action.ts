@@ -8,12 +8,6 @@ import { redirect, RedirectType } from "next/navigation"
 import prisma from "@/database/db"
 
 
-type FormState = {
-    success: boolean,
-    message?: string,
-    errorType: 'emailAlreadyExist' | 'usernameTaken' | 'shortPassword' | 'validationError'
-}
-
 export async function handleSubmitSignupForm(previousState: any, formData: FormData) {
 
 
@@ -37,6 +31,9 @@ export async function handleSubmitSignupForm(previousState: any, formData: FormD
                 username: validation.error.format().username?._errors[0],
                 email: validation.error.format().email?._errors[0],
                 password: validation.error.format().password?._errors[0]
+            },
+            user: {
+                email: undefined
             }
         }
     }
@@ -69,7 +66,7 @@ export async function handleSubmitSignupForm(previousState: any, formData: FormD
                 password: ""
             },
             user: {
-                email: res.data.createdUser.email
+                email: res.data.createdUser.email as string || ""
             }
         }
     } catch (error: any) {
@@ -84,6 +81,9 @@ export async function handleSubmitSignupForm(previousState: any, formData: FormD
                 username: "",
                 email: "",
                 password: ""
+            },
+            user: {
+                email: ""
             }
         }
     }
@@ -109,8 +109,7 @@ export async function handleSubmitSigninForm(formData: FormData) {
             email: email,
             password: password
         })
-
-        redirect('/dashboard', RedirectType.push)
+        
     } catch (error) {
         console.log('failed to signin', error)
     }

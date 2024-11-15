@@ -12,7 +12,7 @@ import FeedbackUrl from './FeedbackUrl'
 import { NextRequest } from 'next/server'
 import { headers } from 'next/headers'
 
-const UserDashboard = async ({ req }: { req: NextRequest }) => {
+const UserDashboard = async () => {
 
     const session = await auth();
 

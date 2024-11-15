@@ -1,12 +1,12 @@
 import prisma from "@/database/db";
 import { signupSchema } from "@/schemas/signupschema";
 import { generateSixDigitOtp, sendVerificationEmail } from "@/utils/sendVerificaitonEmail";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import bcrypt from 'bcrypt'
 import { signIn } from "@/auth";
 const saltRound = parseInt(process.env.SALT_ROUND || "");
 
-export const POST = async (req: NextResponse) => {
+export const POST = async (req: NextRequest) => {
 
     try {
         const { username, email, password } = await req.json();

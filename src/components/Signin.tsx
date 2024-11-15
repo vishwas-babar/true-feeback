@@ -55,7 +55,7 @@ const Signin = () => {
                     </Button>
 
                     <span className='text-sm'>
-                        don't have an account, {" "}
+                       {" don't have an account,"} {" "}
                         <Link className='underline text-blue-900' href={'/sign-up'}>Sign up</Link>
                     </span>
                 </CardFooter>

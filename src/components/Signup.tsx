@@ -24,7 +24,7 @@ interface errorType {
         password: string | undefined;
     },
     user: {
-        email: string
+        email: string | undefined
     }
 }
 
@@ -32,6 +32,7 @@ const Signup = () => {
 
     const router = useRouter()
 
+    // @ts-ignore
     const [state, formAction] = useFormState<errorType>(handleSubmitSignupForm, {
         success: false,
         message: "",
@@ -209,7 +210,7 @@ const ErrorField = ({ errorState, name, classname = "" }: {
 
     return (
         <span className='text-xs text-nowrap text-red-600'  >
-            {errorState.errors[name]}
+            {errorState.errors[name as keyof typeof errorState.errors]}
         </span>
     )
 }

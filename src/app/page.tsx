@@ -12,7 +12,7 @@ export default function Home() {
 
         this is the landing page for true feedback
         <UserMessages />
-        <SendMessage />
+        <SendMessage sendMessageTo="thissadf" />
       </div>
     </BackgroundBeamsWithCollision>
   );

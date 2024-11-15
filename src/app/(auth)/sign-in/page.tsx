@@ -1,4 +1,4 @@
-import SigninPage from '@/pages/SigninPage'
+import SigninPage from '@/mainpages/SigninPage'
 import React from 'react'
 
 // sign in page

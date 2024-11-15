@@ -2,9 +2,9 @@
 import { getCurrentUser } from '@/actions/action'
 import SendMessage from '@/components/SendMessage'
 import { useParams, useSearchParams } from 'next/navigation'
-import React from 'react'
+import React, { Suspense } from 'react'
 
-const page = () => {
+const SendMessageComponent = () => {
 
     const params = useSearchParams()
 
@@ -23,4 +23,14 @@ const page = () => {
     )
 }
 
-export default page
+const Page = () => {
+  return (
+      <>
+          <Suspense fallback={<div>Loading...</div>}>
+                <SendMessageComponent />
+          </Suspense>
+      </>
+  )
+}
+
+export default Page
