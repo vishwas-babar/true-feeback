@@ -66,8 +66,8 @@ async function redirectingMiddleware(request: NextRequest) {
         // salt: salt,
     })
 
-    const user = jwt.verify(token, process.env.AUTH_SECRET || "")
-    console.log("current user: ", user)
+    // const user = jwt.verify(token, process.env.AUTH_SECRET || "")
+    // console.log("current user: ", user)
     console.log("process.env.NODE_ENV",salt)
     console.log('token : ', token)
 
