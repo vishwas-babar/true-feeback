@@ -1,3 +1,4 @@
+
 import { NextResponse } from 'next/server'
 import { NextRequest } from 'next/server'
 // import { auth as middleware } from './auth'
@@ -62,13 +63,11 @@ async function redirectingMiddleware(request: NextRequest) {
     const token = await getToken({
         req: request,
         secret: process.env.AUTH_SECRET || "",
-        raw: true
+        secureCookie: process.env.NODE_ENV === 'production' ? true : false, 
         // salt: salt,
     })
 
-    // const user = jwt.verify(token, process.env.AUTH_SECRET || "")
-    // console.log("current user: ", user)
-    console.log("process.env.NODE_ENV",salt)
+    console.log("process.env.NODE_ENV", salt)
     console.log('token : ', token)
 
     if (token && (
