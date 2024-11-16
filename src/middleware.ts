@@ -3,6 +3,7 @@ import { NextRequest } from 'next/server'
 // import { auth as middleware } from './auth'
 // import { getSession } from 'next-auth/react''
 import { getToken } from 'next-auth/jwt'
+import jwt from 'jsonwebtoken'
 import { auth } from './auth'
 
 
@@ -61,9 +62,12 @@ async function redirectingMiddleware(request: NextRequest) {
     const token = await getToken({
         req: request,
         secret: process.env.AUTH_SECRET || "",
+        raw: true
         // salt: salt,
     })
 
+    const user = jwt.verify(token, process.env.AUTH_SECRET || "")
+    console.log("current user: ", user)
     console.log("process.env.NODE_ENV",salt)
     console.log('token : ', token)
 
