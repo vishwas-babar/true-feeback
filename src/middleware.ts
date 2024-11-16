@@ -54,13 +54,17 @@ async function redirectingMiddleware(request: NextRequest) {
 
     const url = request.nextUrl
 
+    const salt = process.env.NODE_ENV === "production"
+        ? "__Secure-authjs.session-token"
+        : "authjs.session-token";
+    // @ts-ignore
     const token = await getToken({
         req: request,
         secret: process.env.AUTH_SECRET || "",
-        salt: process.env.NODE_ENV === "production"
-            ? "__Secure-authjs.session-token"
-            : "authjs.session-token",
+        // salt: salt,
     })
+
+    console.log("process.env.NODE_ENV",salt)
     console.log('token : ', token)
 
     if (token && (
