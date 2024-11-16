@@ -21,15 +21,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 // if user is not verified then throw error to verify your email first
                 // if verified then return the user
                 const { email, password } = credentials;
-                console.log(credentials)
 
                 try {
                     const validation = signinSchema.safeParse({ email, password })
 
                     if (!validation.success && validation.error) {
-                        throw new CredentialsSignin(" email or password")
-                        
+
+                        const emailError = validation.error.format().email?._errors[0];
+                        const passwordError = validation.error.format().password?._errors[0];
+                        if (emailError)
+                            throw new CredentialsSignin("invalid_email")
+                        else if (passwordError)
+                            throw new CredentialsSignin("invalid_password")
+                        else 
+                            throw new CredentialsSignin("invalid_credentials")
+
                     }
+
+                    console.log('email and password: ', validation.data)
 
                     const existingUser = await prisma.user.findFirst({
                         where: { email: email || "" },
@@ -43,14 +52,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                         },
                     })
 
+
                     if (!existingUser) {
-                        throw new Error("There is no Account with this Email")
+                        throw new Error("no_account_with_email")
                     }
 
                     const isPasswordMatch = await bcrypt.compare(password as string, existingUser.password)
 
                     if (!isPasswordMatch) {
-                        throw new Error('wrong password!')
+                        throw new Error('wrong_password')
                     }
 
                     return {
@@ -62,13 +72,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                     };
 
                 } catch (error: any) {
-                    console.error(error.message)
+                    // return {
+                    //     type: 'error',
+                    //     success: false,
+                    //     message: 'Please try again later'
+                    // }
                     throw new Error(error.message)
-                    return null
                 }
             },
         },
-            
+
         ),
     ],
     callbacks: {
@@ -83,7 +96,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             }
 
             return token
-        }, 
+        },
         session: ({ session, token }) => {
 
             if (token) {

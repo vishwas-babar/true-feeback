@@ -6,6 +6,7 @@ import { signinSchema } from "@/schemas/signinSchema"
 import { signIn } from "@/auth"
 import { redirect, RedirectType } from "next/navigation"
 import prisma from "@/database/db"
+import { CredentialsSignin } from "next-auth"
 
 
 export async function handleSubmitSignupForm(previousState: any, formData: FormData) {
@@ -90,10 +91,9 @@ export async function handleSubmitSignupForm(previousState: any, formData: FormD
 
 }
 
-export async function handleSubmitSigninForm(formData: FormData) {
+export async function handleSubmitSigninForm(formData: { email: string, password: string }) {
 
-    const email = formData.get('email')
-    const password = formData.get('password')
+    const { email, password } = formData
 
     const validation = signinSchema.safeParse({ email, password })
 
@@ -107,11 +107,65 @@ export async function handleSubmitSigninForm(formData: FormData) {
         const signinStatus = await signIn('credentials', {
             redirect: false,
             email: email,
-            password: password
+            password: password,
+            // redirectTo: '/dashboard'
         })
-        
-    } catch (error) {
-        console.log('failed to signin', error)
+
+        console.log('this is is the returned data from signin: ', signinStatus)
+
+        return {
+            success: true,
+            message: "User loged in."
+        }
+    } catch (error: any) {
+        console.log('failed to signin', error.cause?.err?.message)
+        console.log('failed to signin', error.code)
+
+        const errorMessage: string | undefined = error.cause?.err?.message;
+
+        if (error instanceof CredentialsSignin) {
+            switch (error.type) {
+                case "CredentialsSignin":
+                    return {
+                        success: false,
+                        type: 'error',
+                        message: 'Invalid credential!'
+                    }
+                    break;
+
+                default:
+                    return {
+                        success: false,
+                        type: 'error',
+                        message: 'something went wrong!, try again later'
+                    }
+                    break;
+            }
+        }
+        else if (errorMessage === 'no_account_with_email')
+            return {
+                success: false,
+                type: 'error',
+                message: 'there is no account with provided email.'
+            }
+        else if (errorMessage === 'wrong_password')
+            return {
+                success: false,
+                type: 'error',
+                message: 'wrong password'
+            }
+        else
+            return {
+                success: false,
+                type: 'error',
+                message: 'something went wrong! try again later.'
+            }
+
+
+        return {
+            success: false,
+            message: "something went wrong! try again letter"
+        }
     }
 }
 

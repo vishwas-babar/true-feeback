@@ -6,6 +6,7 @@ const page = () => {
     return (
         <>
             <SigninPage />
+            
         </>
     )
 }

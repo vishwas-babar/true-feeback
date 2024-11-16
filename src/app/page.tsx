@@ -1,3 +1,4 @@
+import ReacthookformSignin from "@/components/ReacthookformSignin";
 import SendMessage from "@/components/SendMessage";
 import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
 import UserDashboard from "@/components/UserDashboard";
@@ -12,7 +13,7 @@ export default function Home() {
 
         this is the landing page for true feedback
         <UserMessages />
-        <SendMessage sendMessageTo="thissadf" />
+        <ReacthookformSignin />
       </div>
     </BackgroundBeamsWithCollision>
   );
