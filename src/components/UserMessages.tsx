@@ -57,14 +57,14 @@ const UserMessages = () => {
                 ))
             }
 
-            {/* <MessageCard message="you have new message" time='10 days ago' />
             <MessageCard message="you have new message" time='10 days ago' />
             <MessageCard message="you have new message" time='10 days ago' />
             <MessageCard message="you have new message" time='10 days ago' />
             <MessageCard message="you have new message" time='10 days ago' />
             <MessageCard message="you have new message" time='10 days ago' />
             <MessageCard message="you have new message" time='10 days ago' />
-            <MessageCard message="you have new message" time='10 days ago' /> */}
+            <MessageCard message="you have new message" time='10 days ago' />
+            <MessageCard message="you have new message" time='10 days ago' />
         </div>
     )
 }

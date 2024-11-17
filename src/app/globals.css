@@ -74,3 +74,25 @@
       @apply bg-background text-foreground;
     }
   }
+
+
+  /* this css for carousel */
+  .middleElement {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    transform: translateZ(20px);
+    z-index: 3; /* Ensure this element is on top */
+  }
+  
+  .rightElement {
+    perspective: 1000px;
+    transform: translate3d(0, 0, 10px);
+    z-index: 2; /* Ensure this element is below middleElement */
+    scale: 0.9;
+  }
+  
+  .leftElement {
+    perspective: 1000px;
+    transform: rotateZ(5deg) translate3d(0, 0, 10px);
+    z-index: 1; /* Ensure this element is below middleElement and rightElement */
+  }

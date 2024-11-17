@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss"
 import { fontFamily } from "tailwindcss/defaultTheme"
 
@@ -21,6 +22,9 @@ const config = {
     extend: {
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
+      },
+      transformStyle: {
+        'preserve-3d': 'preserve-3d'
       },
       colors: {
         border: "hsl(var(--border))",

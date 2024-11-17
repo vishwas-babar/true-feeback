@@ -6,6 +6,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { SessionProvider } from "next-auth/react";
 import RecoilContextProvider from "@/lib/RecoilContextProvider";
 import { Toaster } from "@/components/ui/toaster";
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -25,7 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <RecoilContextProvider>
 
-        <body className={inter.className}>
+        <body className={GeistSans.className}>
           <SessionProvider >
 
             <ThemeProvider

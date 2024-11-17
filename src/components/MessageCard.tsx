@@ -4,12 +4,13 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import { Button } from './ui/button'
 import { Mail, MessageCircle } from 'lucide-react'
 
-const MessageCard = ({ message, time }: {
+const MessageCard = ({ message, time, classname }: {
     message: string,
-    time: string
+    time: string,
+    classname?: string
 }) => {
     return (
-        <CardSpotlight className='w-full flex flex-col pr-0 gap-2 pt-7 pl-5 h-24 '>
+        <CardSpotlight className={`w-full flex flex-col pr-0 gap-2 pt-7 pl-5 h-24  ${classname}`}>
             <div className='flex justify-start gap-4 items-center'>
                 <Mail />
                 {message}
