@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import MessageCard from '../MessageCard';
+import MessageCard from '../MessageCard'; 
+import { motion } from 'framer-motion';
 
 
 const demoMessages: {
@@ -20,7 +21,6 @@ const demoMessages: {
     ];
 const MessageSlider = () => {
 
-    // const [middleIndex, setMiddleIndex] = useState<number>(4);
     const [current, setCurrent] = useState(Math.floor(demoMessages.length / 2));
 
     useEffect(() => {
@@ -48,12 +48,6 @@ const MessageSlider = () => {
         }
     }
 
-    // const left = "leftElement";
-    // const middle = "middleElement";
-    // const right = "rightElement";
-    // const defaultClass = "absolute  -translate-y-20 opacity-0";
-
-
     const centerElementClass = " z-20 opacity-1 scale-1"
     const leftElementClass = "absolute opacity-60 scale-90 -translate-y-20 -translate-x-96"
     const rightElementClass = "absolute opacity-60 scale-90 translate-y-20 translate-x-96"
@@ -71,9 +65,14 @@ const MessageSlider = () => {
     }
 
     return (
-        <div className={`relative flex justify-center items-center w-full h-52`}>
+        <div className={`relative flex justify-center items-center overflow-x-hidden w-full h-fit`}>
 
-            <div className='h-80  relative flex items-center justify-center gap-10 w-80rem'>
+            <motion.div
+                initial={{ opacity: 0, y: -50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.2 }}
+
+                className='h-80  relative flex items-center justify-center gap-10 w-80rem'>
 
                 {demoMessages.map((message, index) => {
 
@@ -84,7 +83,7 @@ const MessageSlider = () => {
                 <MessageCard classname={` transition-all ease-linear duration-200 w-96 transform middleElement ${middle}`} message='this is the middle middleElement' time='10 hours ago' />
                 <MessageCard classname={` transition-all ease-linear duration-200 w-96 transform rightElement ${right}`} message='this is the two' time='10 hours ago' />
                 <MessageCard classname={` transition-all ease-linear duration-200 w-96 transform ${defaultClass} absolute  -translate-y-20`} message='this is the default' time='10 hours ago' /> */}
-            </div>
+            </motion.div>
 
         </div>
     )

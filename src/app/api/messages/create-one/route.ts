@@ -47,12 +47,12 @@ export const POST = async (req: NextRequest) => {
             }, select: { id: true, isAcceptingMessage: true, username: true }
         })
 
-        if (userToSendFeedback?.username == currentUser.user.username) {
-            return NextResponse.json({
-                success: false,
-                message: "you cant send a feedback to yourself!"
-            }, { status: 406 })
-        }
+        // if (userToSendFeedback?.username == currentUser.user.username) {
+        //     return NextResponse.json({
+        //         success: false,
+        //         message: "you cant send a feedback to yourself!"
+        //     }, { status: 406 })
+        // }
 
         if (!userToSendFeedback) {
             return NextResponse.json({
@@ -64,7 +64,7 @@ export const POST = async (req: NextRequest) => {
         if (!userToSendFeedback?.isAcceptingMessage) {
             return NextResponse.json({
                 success: false,
-                message: "the user to whom you want send the messages is not ready to accept feedback from anyone"
+                message: "User does not accepting the message."
             }, { status: 406 })
         }
 
