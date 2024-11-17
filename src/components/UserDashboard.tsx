@@ -1,16 +1,11 @@
 import React from 'react'
-import { Button } from './ui/button'
 import AcceptingMessagesToggle from './AcceptingMessagesToggle'
 import { auth } from '@/auth'
 import MessageCard from './MessageCard'
 import { ScrollArea } from './ui/scroll-area'
-import axios from 'axios'
-import { BACKEND_URL } from '../../variables'
 import UserMessages from './UserMessages'
 import { getCurrentUser } from '@/actions/action'
 import FeedbackUrl from './FeedbackUrl'
-import { NextRequest } from 'next/server'
-import { headers } from 'next/headers'
 
 const UserDashboard = async () => {
 
