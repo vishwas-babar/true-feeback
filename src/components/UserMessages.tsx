@@ -51,12 +51,7 @@ const UserMessages = () => {
         const givenDate = new Date(date);
         const now = new Date();
 
-        // const miliseconds = Math.floor(now.getTime() - givenDate.getTime());
-        const seconds = Math.floor((now.getMinutes() - givenDate.getMinutes()));
-        if (seconds < 60)
-            return `${seconds} seconds ago`
-
-        const minutes = Math.floor(seconds / 60);
+        const minutes = Math.floor(now.getMinutes() - givenDate.getMinutes());
         if (minutes < 60)
             return `${minutes} minutes ago`
 
