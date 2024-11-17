@@ -1,20 +1,37 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import TruefeebackLogo from './TruefeebackLogo'
 import { Button } from '../ui/button'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { signOut, useSession } from 'next-auth/react'
+import useDetectScroll, { Axis } from "@smakss/react-scroll-direction";
 
 
 const Topnav = () => {
+
+    const { scrollDir, scrollPosition } = useDetectScroll({
+        axis: Axis.Y,
+        thr: 100,
+    });
+
+    const [topnavDisplayed, setTopnavDisplayed] = useState(true);
+
+    useEffect(() => {
+        if (scrollDir === 'down') {
+            setTopnavDisplayed(false)
+        } else if (scrollDir === 'up') {
+            setTopnavDisplayed(true)
+        }
+    }, [scrollDir])
+
 
     const router = useRouter()
     const { data: session, status } = useSession()
 
     return (
-        <div className="w-full shadow- shadow-[0px_0px_1px_0px_#f7fafc] flex justify-center">
+        <div className={`fixed  backdrop-blur-md transition-all ease-linear duration-1000 z-30 w-full shadow-[0px_0px_1px_0px_#f7fafc] flex justify-center ${topnavDisplayed ? 'mt-0' : '-mt-[100%]'}`}>
             <nav className="flex justify-between md:w-2/3 w-full md:px-0 px-3  h-16 items-center  ">
 
 
@@ -56,7 +73,7 @@ const Topnav = () => {
                                 Loading...
                             </Button>
                         </div>
-                   ) : ((status === 'authenticated') ? (
+                    ) : ((status === 'authenticated') ? (
                         <div className="flex items-center gap-4">
                             <Button
                                 size="sm"
@@ -67,11 +84,13 @@ const Topnav = () => {
                             </Button>
                         </div>
                     ) : (
-                        <Button
-                            onClick={() => router.push('/sign-in')}
-                            className="rounded-full font-medium">
-                            Sign in
-                        </Button>
+
+                        <Link href="/sign-in">
+                            <Button
+                                className="rounded-full font-medium">
+                                Sign in
+                            </Button>
+                        </Link>
                     ))}
                 </motion.div>
             </nav>

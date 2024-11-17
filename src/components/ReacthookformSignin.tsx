@@ -51,7 +51,7 @@ const ReacthookformSignin = () => {
         title: res.message || "User Signed in",
       })
 
-      router.push('/dashboard')
+      window.location.href = '/dashboard'
     } catch (error: any) {
 
       toast({

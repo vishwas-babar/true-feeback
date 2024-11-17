@@ -18,7 +18,7 @@ interface CurrentMessageState extends Omit<Message, 'createdAt'> {
 const UserMessages = () => {
 
     const [messages, setMessages] = useState<Message[]>()
-    const [isMessageReadModalOpen, setIsMessageReadModalOpen] = useState(true)
+    const [isMessageReadModalOpen, setIsMessageReadModalOpen] = useState(false)
     const [currentMessage, setCurrentMessage] = useState<CurrentMessageState>({
         id: "",
         content: "",
@@ -27,7 +27,6 @@ const UserMessages = () => {
     })
 
     useEffect(() => {
-
 
         axios.get('/api/messages/get-users-messages')
             .then(res => {

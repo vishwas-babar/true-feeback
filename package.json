@@ -24,6 +24,7 @@
     "@radix-ui/react-toast": "^1.2.2",
     "@react-email/components": "0.0.23",
     "@react-three/fiber": "^8.17.10",
+    "@smakss/react-scroll-direction": "^4.2.0",
     "@types/bcrypt": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.7",
     "axios": "^1.7.7",

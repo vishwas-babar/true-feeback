@@ -74,10 +74,17 @@ const SendMessage = ({ sendMessageTo }: { sendMessageTo: string }) => {
                     variant: 'destructive'
                 })
             } else if (error.response.status === 406) {
-                toast({
-                    title: "user not accepting feeback",
-                    description: error.response.data.message,
-                })
+
+                if (error.response.data.message === "you cant send a feedback to yourself!")
+                    toast({
+                        title: "You can't send message to yourself",
+                        variant: 'destructive'
+                    })
+                else
+                    toast({
+                        title: "user not accepting feeback",
+                        description: error.response.data.message,
+                    })
             } else {
                 toast({
                     title: "An error occured",

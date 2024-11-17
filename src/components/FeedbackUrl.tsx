@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react'
 import { Button } from './ui/button'
 import { useSession } from 'next-auth/react'
 import { useToast } from '@/hooks/use-toast'
+import { useRecoilValue } from 'recoil'
+import { currentUser } from '@/state/state'
 
 const FeedbackUrl = ({ username }: { username: string }) => {
 
@@ -11,11 +13,13 @@ const FeedbackUrl = ({ username }: { username: string }) => {
     const { data: session, status } = useSession()
     const { toast } = useToast()
 
+    const user = useRecoilValue(currentUser)
+
     useEffect(() => {
 
         console.log(window.location.origin)
 
-        const encodedUrl = encodeURIComponent(username || "")
+        const encodedUrl = encodeURIComponent(user?.username || "")
 
         const url = window.location.origin + '/send-message?to=' + encodedUrl;
 
