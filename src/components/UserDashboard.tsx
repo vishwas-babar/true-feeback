@@ -29,7 +29,7 @@ const UserDashboard = async () => {
 
     return (
         <div className='flex flex-col mx-auto p-4 w-full sm:w-2/3'>
-            <h3 className="scroll-m-20  text-2xl font-semibold tracking-tight">
+            <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight text-white">
                 User Dashboard
             </h3>
 
@@ -37,7 +37,7 @@ const UserDashboard = async () => {
 
             <AcceptingMessagesToggle isAcceptingMessageProp={user.user?.isAcceptingMessage || false} />
 
-            <ScrollArea className="w-full h-96 border mt-4 p-4 rounded-md shadow-gray-900 shadow-xl">
+            <ScrollArea className="w-full h-96 border border-slate-700 mt-4 p-4 rounded-md bg-slate-800/50 backdrop-blur-lg shadow-[0px_0px_1px_0px_#f7fafc]">
                 <UserMessages />
             </ScrollArea>
         </div>

@@ -100,10 +100,10 @@ const SendMessage = ({ sendMessageTo }: { sendMessageTo: string }) => {
     return (
         <form onSubmit={submitSendMessageForm}>
 
-            <Card className='w-96 dark:bg-color2'>
+            <Card className='w-96 backdrop-blur-lg bg-slate-800/50 border-slate-700 text-white shadow-[0px_0px_1px_0px_#f7fafc]'>
 
                 <CardHeader>
-                    <h2 className='text-xl flex gap-2 justify-center items-center text-center font-medium'>
+                    <h2 className='text-xl flex gap-2 justify-center items-center text-center font-medium text-white'>
                         Send message
                         <Send className='size-5' />
                     </h2>
@@ -114,11 +114,11 @@ const SendMessage = ({ sendMessageTo }: { sendMessageTo: string }) => {
 
                         <div>
 
-                            <Label htmlFor='username'>
+                            <Label htmlFor='username' className="text-white">
                                 Username:
                             </Label>
                             <Input name='username' id='username' type='text'
-                                className='dark:bg-color1'
+                                className='bg-slate-700/50 border-slate-600 text-white'
                                 value={username}
                                 disabled
                                 onChange={(e) => {
@@ -127,7 +127,7 @@ const SendMessage = ({ sendMessageTo }: { sendMessageTo: string }) => {
                             />
                         </div>
                         <Textarea
-                            className='dark:bg-color1'
+                            className='bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400'
                             onChange={(e) => setMessage(e.target.value)}
                             placeholder='type your message...'
                         />
@@ -136,7 +136,7 @@ const SendMessage = ({ sendMessageTo }: { sendMessageTo: string }) => {
                 </CardContent>
 
                 <CardFooter className='flex justify-end'>
-                    <Button disabled={isSubmiting} type='submit' className=' bg-color3 flex items-center justify-center gap-2 hover:bg-color4 text-white'>
+                    <Button disabled={isSubmiting} type='submit' className='bg-slate-800 hover:bg-slate-900 flex items-center justify-center gap-2 text-white'>
                         {isSubmiting ? (
                             <>
                                 <Loader2 className='size-4 animate-spin' /> {'Sending...'}

@@ -57,15 +57,15 @@ const OtpVerification = ({ isActive }: {
 
     return (
         <>
-            <Card className={`absolute ${isActive ? "" : "hidden"}`}>
+            <Card className={`absolute backdrop-blur-lg bg-slate-800/50 border-slate-700 text-white shadow-[0px_0px_1px_0px_#f7fafc] ${isActive ? "" : "hidden"}`}>
                 <form action={verifyOTP}>
 
                     <CardHeader>
-                        <CardTitle>
+                        <CardTitle className="text-white">
                             OTP Verification
                         </CardTitle>
 
-                        <CardDescription>
+                        <CardDescription className="text-slate-300">
                             Enter your verification code, sent on your Email.
                         </CardDescription>
                     </CardHeader>
@@ -90,7 +90,7 @@ const OtpVerification = ({ isActive }: {
 
                     <CardFooter className='w-full flex justify-end'>
 
-                        <SubmitBtn label='Verify' loading="verifying..." classname="" />
+                        <SubmitBtn label='Verify' loading="verifying..." classname="bg-slate-800 hover:bg-slate-900 text-white" />
                     </CardFooter>
                 </form>
             </Card>

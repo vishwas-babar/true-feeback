@@ -1,5 +1,5 @@
 "use client"
-import React, {  } from 'react'
+import React, { } from 'react'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card'
 import { Label } from './ui/label'
 import { Input } from './ui/input'
@@ -19,48 +19,48 @@ const Signin = () => {
 
 
     return (
-        <form className='' onSubmit={() => {}}>
-            <Card className='w-80 dark:bg-color2'>
+        <form className='' onSubmit={() => { }}>
+            <Card className='w-80 backdrop-blur-lg bg-slate-800/50 border-slate-700 text-white shadow-[0px_0px_1px_0px_#f7fafc]'>
                 <CardHeader className='bg-transparent'>
-                    <CardTitle>
+                    <CardTitle className="text-white">
                         Login
                     </CardTitle>
 
-                    <CardDescription>
+                    <CardDescription className="text-slate-300">
                         Enter your Email and Password
                     </CardDescription>
                 </CardHeader>
 
                 <CardContent className='flex bg-transparent flex-col gap-3'>
                     <div>
-                        <Label htmlFor='email'>
+                        <Label htmlFor='email' className="text-white">
                             Email
-                            <Input type='email' name='email' id='email' placeholder='Enter email' />
+                            <Input type='email' name='email' id='email' placeholder='Enter email' className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400" />
                         </Label>
                     </div>
 
                     <div>
-                        <Label htmlFor='password'>
+                        <Label htmlFor='password' className="text-white">
                             Password
-                            <Input type='password' name='password' id='password' placeholder='Enter password' />
+                            <Input type='password' name='password' id='password' placeholder='Enter password' className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400" />
                         </Label>
                     </div>
                 </CardContent>
 
                 <CardFooter className='flex pb-3 bg-transparent flex-col gap-[2px] items-start'>
-                    <Button variant={'default'} className='w-full bg-color3 text-white font-medium hover:bg-green-800 ' type='submit'>
+                    <Button variant={'default'} className='w-full bg-slate-800 hover:bg-slate-900 text-white font-medium' type='submit'>
                         Login
                     </Button>
 
-                    <span className='text-sm'>
-                       {" don't have an account,"} {" "}
-                        <Link className='underline text-blue-900' href={'/sign-up'}>Sign up</Link>
+                    <span className='text-sm text-slate-300'>
+                        {" don't have an account,"} {" "}
+                        <Link className='underline text-blue-400 hover:text-blue-300' href={'/sign-up'}>Sign up</Link>
                     </span>
                 </CardFooter>
             </Card>
         </form>
     )
-    
+
     // const form = useForm<z.infer<typeof signinSchema>>({
     //     resolver: zodResolver(signinSchema),
     //     defaultValues: {

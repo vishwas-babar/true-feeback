@@ -10,27 +10,27 @@ const SendMessageComponent = () => {
 
     const username: string | undefined | null = params?.get('to');
 
-   
+
 
     return (
-        <div className='bg-color1  h-screen w-full flex items-center justify-center'>
+        <div className='bg-slate-900 h-screen w-full flex items-center justify-center'>
             {username ? <SendMessage sendMessageTo={username} /> : (
-                <>
-                    <h1>invaid link</h1>
-                </>
+                <div className="text-white">
+                    <h1>invalid link</h1>
+                </div>
             )}
         </div>
     )
 }
 
 const Page = () => {
-  return (
-      <>
-          <Suspense fallback={<div>Loading...</div>}>
+    return (
+        <>
+            <Suspense fallback={<div>Loading...</div>}>
                 <SendMessageComponent />
-          </Suspense>
-      </>
-  )
+            </Suspense>
+        </>
+    )
 }
 
 export default Page

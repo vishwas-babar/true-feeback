@@ -33,14 +33,14 @@ const FeedbackUrl = ({ username }: { username: string }) => {
 
 
     return (
-        <div className='mt-6 dark:bg-color2 overflow-hidden rounded-md' >
-            <div className='flex w-full border px-4 py-4 rounded-md justify-between items-center'>
-                <p>
+        <div className='mt-6 bg-slate-800/50 backdrop-blur-lg border border-slate-700 overflow-hidden rounded-md shadow-[0px_0px_1px_0px_#f7fafc]' >
+            <div className='flex w-full px-4 py-4 rounded-md justify-between items-center'>
+                <p className="text-white">
                     {userFeedbackUrl}
                 </p>
 
                 <Button
-                    className='bg-color3 text-white transition-all ease-in-out active:scale-100 duration-100 hover:bg-color4 hover:scale-105'
+                    className='bg-slate-800 hover:bg-slate-900 text-white transition-all ease-in-out active:scale-100 duration-100 hover:scale-105'
                     variant={'default'}
                     onClick={() => {
 

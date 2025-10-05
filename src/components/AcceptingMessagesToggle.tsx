@@ -11,7 +11,7 @@ const AcceptingMessagesToggle = ({ isAcceptingMessageProp }: { isAcceptingMessag
     const loadable = useRecoilValueLoadable(currentUser)
     // const currentUserInfo = getValue()
 
-    
+
     const [isAcceptingMessage, setIsAcceptingMessage] = useState<boolean>(isAcceptingMessageProp || false)
 
     useEffect(() => {
@@ -39,7 +39,7 @@ const AcceptingMessagesToggle = ({ isAcceptingMessageProp }: { isAcceptingMessag
                 checked={isAcceptingMessage}
                 onClick={toggleAcceptingMessages}
             />
-            <Label htmlFor="Acceptingmessage">Accept Message: {isAcceptingMessage ? 'on' : 'off'}</Label>
+            <Label htmlFor="Acceptingmessage" className="text-white">Accept Message: {isAcceptingMessage ? 'on' : 'off'}</Label>
         </div>
     )
 }

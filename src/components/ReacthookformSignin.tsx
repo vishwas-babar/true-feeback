@@ -68,12 +68,12 @@ const ReacthookformSignin = () => {
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(submitForm)}>
-          <Card className='w-80 dark:bg-color2'>
+          <Card className='w-80 backdrop-blur-lg bg-slate-800/50 border-slate-700 text-white shadow-[0px_0px_1px_0px_#f7fafc]'>
             <CardHeader>
-              <CardTitle>
+              <CardTitle className="text-white">
                 Signin
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-slate-300">
                 Enter your Email and Password
               </CardDescription>
             </CardHeader>
@@ -84,13 +84,14 @@ const ReacthookformSignin = () => {
                 name='email'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
+                    <FormLabel className="text-white">
                       Email
                     </FormLabel>
                     <FormControl>
                       <Input
                         type='email'
                         placeholder='email'
+                        className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
                         {...field}
                       // onChange={(e: React.FormEvent<HTMLInputElement>) => field.onChange(e)}
                       />
@@ -105,13 +106,14 @@ const ReacthookformSignin = () => {
                 name='password'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
+                    <FormLabel className="text-white">
                       Password
                     </FormLabel>
                     <FormControl>
                       <Input
                         type='password'
                         placeholder='password'
+                        className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
                         {...field}
                       // onChange={(e: React.FormEvent<HTMLInputElement>) => field.onChange(e)}
                       />
@@ -123,7 +125,7 @@ const ReacthookformSignin = () => {
             </CardContent>
 
             <CardFooter className='flex flex-col items-start'>
-              <Button disabled={isSubmiting} variant={'default'} className='w-full flex items-center justify-center gap-2 bg-color3 text-white font-medium hover:bg-green-800 ' type='submit'>
+              <Button disabled={isSubmiting} variant={'default'} className='w-full flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-900 text-white font-medium' type='submit'>
                 {isSubmiting ? (
                   <>
                     <Loader2 className='size-4 animate-spin' />
@@ -131,9 +133,9 @@ const ReacthookformSignin = () => {
                   </>
                 ) : ("Sign in")}
               </Button>
-              <span className='text-sm'>
+              <span className='text-sm text-slate-300'>
                 {" don't have an account,"} {" "}
-                <Link className='underline text-blue-900' href={'/sign-up'}>Sign up</Link>
+                <Link className='underline text-blue-400 hover:text-blue-300' href={'/sign-up'}>Sign up</Link>
               </span>
             </CardFooter>
           </Card>

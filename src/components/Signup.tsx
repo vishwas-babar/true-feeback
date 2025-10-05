@@ -128,15 +128,15 @@ const Signup = () => {
     return (
         <>
             <form action={formAction}>
-                <Card className='w-80 dark:bg-color2'>
+                <Card className='w-80 backdrop-blur-lg bg-slate-800/50 border-slate-700 text-white shadow-[0px_0px_1px_0px_#f7fafc]'>
 
                     <CardHeader>
 
-                        <CardTitle >
+                        <CardTitle className="text-white">
                             Sign up
                         </CardTitle>
 
-                        <CardDescription>
+                        <CardDescription className="text-slate-300">
                             Create new account
                         </CardDescription>
                     </CardHeader>
@@ -144,14 +144,14 @@ const Signup = () => {
                     <CardContent className='flex flex-col gap-2' >
 
                         <div>
-                            <Label htmlFor='username'>
+                            <Label htmlFor='username' className="text-white">
                                 Username
                             </Label>
 
                             <div className='flex relative'>
 
                                 <Input
-                                    className='w-full'
+                                    className='w-full bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400'
                                     value={username}
                                     name='username'
                                     id='username'
@@ -161,7 +161,7 @@ const Signup = () => {
                                 />
                                 <Spinner isActive={usernameStatus.isLoading} classname='absolute right-2 top-2 ' />
                                 <Tickmark isActive={usernameStatus.isAvailable} classname='absolute -right-8 top-1/2 transform -translate-y-1/2 scale-[0.3]' />
-                              
+
                             </div>
 
                             <ErrorField name='username' errorState={state} />
@@ -169,29 +169,29 @@ const Signup = () => {
 
 
                         <div>
-                            <Label htmlFor='email'>
+                            <Label htmlFor='email' className="text-white">
                                 email
                             </Label>
-                            <Input name='email' id='email' placeholder='email' type='email' />
+                            <Input name='email' id='email' placeholder='email' type='email' className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400" />
                             <ErrorField name='email' errorState={state} />
                         </div>
 
                         <div>
-                            <Label htmlFor='password'>
+                            <Label htmlFor='password' className="text-white">
                                 password
                             </Label>
-                            <Input name='password' id='password' placeholder='password' type='password' />
+                            <Input name='password' id='password' placeholder='password' type='password' className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400" />
                             <ErrorField name='password' errorState={state} />
                         </div>
                     </CardContent>
 
                     <CardFooter className='flex pb-3 flex-col gap-[2px] items-start'>
 
-                        <SubmitBtn label='Sign up' loading="loading..." classname='w-full bg-color3 text-white font-medium hover:bg-green-800' />
+                        <SubmitBtn label='Sign up' loading="loading..." classname='w-full bg-slate-800 hover:bg-slate-900 text-white font-medium' />
 
-                        <span className='text-sm'>
+                        <span className='text-sm text-slate-300'>
                             Already have an account, {" "}
-                            <Link className='underline text-blue-900' href={'/sign-in'}>Login</Link>
+                            <Link className='underline text-blue-400 hover:text-blue-300' href={'/sign-in'}>Login</Link>
                         </span>
                     </CardFooter>
                 </Card>

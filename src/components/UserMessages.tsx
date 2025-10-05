@@ -140,14 +140,14 @@ const ReadMessageModal = ({ content = "", createdAt = "", isOpen = true, setIsMe
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -50 }}
                     transition={{ duration: 0.2 }}
-                    className="bg-white relative dark:bg-color1 overflow-y-auto w-96 h-96 rounded-lg flex flex-col gap-4 p-4 shadow-[0px_0px_1px_0px_#f7fafc]">
-                    <h1 className="text-xl font-semibold">Message</h1>
+                    className="bg-slate-800/50 backdrop-blur-lg border border-slate-700 relative overflow-y-auto w-96 h-96 rounded-lg flex flex-col gap-4 p-4 shadow-[0px_0px_1px_0px_#f7fafc]">
+                    <h1 className="text-xl font-semibold text-white">Message</h1>
                     <p className="text-slate-300 text-base font-normal">{content}</p>
-                    <p className="text-gray-500 absolute text-sm right-4 bottom-3">{createdAt}</p>
+                    <p className="text-slate-500 absolute text-sm right-4 bottom-3">{createdAt}</p>
 
-                        
-                    <div className='absolute top-2 right-2 p-1 rounded-full flex itemce justify-center border hover:scale-105 transition-all ease-linear cursor-pointer'>
-                    <X className=' size-5 ' />
+
+                    <div className='absolute top-2 right-2 p-1 rounded-full flex itemce justify-center border border-slate-600 hover:scale-105 transition-all ease-linear cursor-pointer'>
+                        <X className='size-5 text-white' />
                     </div>
                 </motion.div>
             </motion.div>}
