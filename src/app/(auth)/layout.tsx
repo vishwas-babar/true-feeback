@@ -1,20 +1,19 @@
 'use client'
-import TopNav from '@/components/TopNav'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { Loader2 } from 'lucide-react'
 
-const ProtectedLayout = ({ children }: { children: React.ReactNode }) => {
+const AuthLayout = ({ children }: { children: React.ReactNode }) => {
     const { data: session, status } = useSession()
     const router = useRouter()
 
     useEffect(() => {
-        if (status === 'unauthenticated') {
-            console.log('User is not authenticated, redirecting to signin')
-            router.push('/sign-in')
+        if (status === 'authenticated' && session) {
+            console.log('User is authenticated, redirecting to dashboard')
+            router.push('/dashboard')
         }
-    }, [status, router])
+    }, [session, status, router])
 
     if (status === 'loading') {
         return (
@@ -27,7 +26,7 @@ const ProtectedLayout = ({ children }: { children: React.ReactNode }) => {
         )
     }
 
-    if (status === 'unauthenticated') {
+    if (status === 'authenticated') {
         return (
             <div className="min-h-screen flex items-center justify-center">
                 <div className="flex items-center gap-2">
@@ -39,11 +38,10 @@ const ProtectedLayout = ({ children }: { children: React.ReactNode }) => {
     }
 
     return (
-        <>
-            <TopNav />
+        <div className="min-h-screen">
             {children}
-        </>
+        </div>
     )
 }
 
-export default ProtectedLayout
+export default AuthLayout

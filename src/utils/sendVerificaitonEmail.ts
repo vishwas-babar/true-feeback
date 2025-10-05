@@ -5,8 +5,7 @@ import { resend } from "@/lib/resend"
 export const sendVerificationEmail = async (to: string, username: string, otp: string): Promise<{ success: boolean, error?: any }> => {
     try {
         const { data, error } = await resend.emails.send({
-            // from: "True Feedback <noreply@vishwasvb.me>",
-            from: 'Vishwas <onboarding@resend.dev>',
+            from: 'Vishwas <hello@vishwasvb.live>',
             to: [to],
             subject: "True Feedback OTP Verification",
             react: VerificationEmailTemplate({ username, verificationCode: otp })
