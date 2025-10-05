@@ -45,6 +45,8 @@ const ReacthookformSignin = () => {
           title: res.message || "An error occured",
           variant: 'destructive'
         })
+        setIsSubmiting(false)
+        return 
       }
 
       toast({
@@ -58,26 +60,8 @@ const ReacthookformSignin = () => {
         title: error.message || "An error occured",
         variant: "destructive"
       })
+      setIsSubmiting(false)
     }
-    setIsSubmiting(false)
-
-    // const validation = signinSchema.safeParse({ email, password })
-
-    // if (!validation.success) {
-    //   console.log(validation.error)
-    // }
-
-    // console.log(validation.data)
-
-    // try {
-    //   const status = await signIn('credentials', {
-    //     redirect: false,
-    //     email: email,
-    //     password: password
-    //   })
-    // } catch (error) {
-    //   console.log('failed to signin', error)
-    // }
   }
 
   return (

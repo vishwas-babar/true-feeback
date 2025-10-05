@@ -44,7 +44,7 @@ const OtpVerification = ({ isActive }: {
                 title: "Email Verified",
                 description: res.data.message
             })
-            router.replace('/dashboard')
+            window.location.href = '/dashboard'
         } catch (error) {
             console.log("error: ", error)
             toast({
